@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập</title>
+    <style>
+        body { font-family: Arial; padding: 30px; }
+        input, button { margin: 10px 0; width: 100%; padding: 8px; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+<h2>Đăng nhập</h2>
+
+<div th:if="${error}" class="error" th:text="${error}"></div>
+
+<form th:action="@{/login}" th:object="${loginRequest}" method="post">
+    <label>Tên đăng nhập:</label>
+    <input type="text" th:field="*{username}" required/>
+
+    <label>Mật khẩu:</label>
+    <input type="password" th:field="*{password}" required/>
+
+    <button type="submit">Đăng nhập</button>
+</form>
+</body>
+</html>
