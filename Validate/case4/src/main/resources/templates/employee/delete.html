@@ -13,7 +13,7 @@
 
 <form th:action="@{/admin/employees/delete/{id}(id=${employee.id})}" method="post">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xoá không?')">🗑️ Đồng ý xoá</button>
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xoá không?')">Đồng ý xoá</button>
     <a th:href="@{/admin/employees}" class="btn btn-secondary">Huỷ</a>
 </form>
 </body>

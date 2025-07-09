@@ -21,6 +21,6 @@ public class RentalController {
     public List<ApartmentService> getServicesByRental(@PathVariable Integer rentalId) {
         ApartmentRental rental = rentalService.findById(rentalId);
         Apartment apartment = rental.getApartment();
-        return apartment.getApartmentServices(); // chứa danh sách dịch vụ của căn hộ
+        return apartment.getApartmentServices();
     }
 }
