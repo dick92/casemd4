@@ -5,11 +5,12 @@ import com.example.case4.model.ApartmentRental;
 import com.example.case4.model.ApartmentService;
 import com.example.case4.service.ApartmentRentalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/admin/rentals")
 public class RentalController {
 

@@ -3,12 +3,14 @@ package com.example.case4.controller;
 import com.example.case4.model.Employee;
 import com.example.case4.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/admin/employees")
 public class EmployeeController {
 
@@ -16,34 +18,52 @@ public class EmployeeController {
     private EmployeeService service;
 
     @GetMapping
-    public List<Employee> listAll() {
-        return service.findAll();
+    public String listAll(Model model) {
+        List<Employee> employees = service.findAll();
+        model.addAttribute("employees", employees);
+        return "employee/list";
     }
 
     @GetMapping("/search")
-    public List<Employee> search(@RequestParam String keyword) {
-        return service.searchByName(keyword);
+    public String search(@RequestParam String keyword, Model model) {
+        List<Employee> employees = service.searchByName(keyword);
+        model.addAttribute("employees", employees);
+        return "employee/search";
     }
 
-    @GetMapping("/{id}")
-    public Optional<Employee> detail(@PathVariable Long id) {
-        return service.findById(id);
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("employee", new Employee());
+        return "employee/create";
     }
 
     @PostMapping
-    public Employee create(@RequestBody Employee employee) {
-        return service.save(employee);
+    public String create(@ModelAttribute("employee") Employee employee) {
+        service.save(employee);
+        return "redirect:/admin/employees";
     }
 
-    @PutMapping("/{id}")
-    public Employee update(@PathVariable Long id, @RequestBody Employee employee) {
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Optional<Employee> employee = service.findById(id);
+        if (employee.isPresent()) {
+            model.addAttribute("employee", employee.get());
+            return "employee/edit";
+        } else {
+            return "redirect:/admin/employees";
+        }
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute("employee") Employee employee) {
         employee.setId(id);
-        return service.save(employee);
+        service.save(employee);
+        return "redirect:/admin/employees";
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
         service.deleteById(id);
+        return "redirect:/admin/employees";
     }
 }
-
