@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body class="container mt-5">
-<h1 class="text-warning mb-4">✏️ Chỉnh sửa thông tin nhân viên</h1>
+<h1 class="text-warning mb-4">Chỉnh sửa thông tin nhân viên</h1>
 
 <form th:action="@{/admin/employees/update/{id}(id=${employee.id})}" th:object="${employee}" method="post">
     <div class="mb-3">
